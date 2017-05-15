@@ -108,6 +108,34 @@ __(function() {
       },
 
       /*************************************************************************
+       * GET /me
+       *
+       * Test the me endpoint returns what we just added when we auth as that 
+       * user.
+       */
+      {
+        name: "GET /me",
+        reqSpec: function(context) {
+          return {
+            url: "/me",
+            method: "GET",
+            headers: {
+              Authorization: authorizationHeader(),
+            }
+          }
+        },
+        resSpec: {
+          statusCode: 200,
+          body: function(body, context) {
+            assert.deepEqual(body, {
+              _id: context.httpHistory.getRes(0).headers.location.substring("/users".length + 1),
+              email: "bob@jones.com",
+            })
+          }
+        }
+      },
+      
+      /*************************************************************************
        * PATCH /users/:_id
        *
        * Test updating user.
