@@ -1,8 +1,9 @@
-var carbon = require('carbon-io')
-var o      = carbon.atom.o(module).main
-var _o     = carbon.bond._o(module)
-var __     = carbon.fibers.__(module).main
 var assert = require('assert')
+
+var carbon = require('carbon-io')
+var o      = carbon.atom.o(module)
+var _o     = carbon.bond._o(module)
+var __     = carbon.fibers.__(module)
 
 // XXX should we also do an admin user example?
 // XXX should we also show examples of users not being able to see other users' stuff?
@@ -21,7 +22,7 @@ TEST_PASSWORD = "rainbow",
  * Test
  */
 __(function() {
-  module.exports = o({
+  module.exports = o.main({
 
     /***************************************************************************
      * _type
@@ -31,7 +32,7 @@ __(function() {
     /***************************************************************************
      * name
      */
-    name: "Contact Service Test",
+    name: "ContactServiceTests",
 
     /***************************************************************************
      * service

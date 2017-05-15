@@ -8,11 +8,11 @@
     "url" : "https://github.com/carbon-io/example__contacts-api"
   },
   "dependencies": {
-    "carbon-io": "0.5.*",
+    "carbon-io": "0.6.*",
     "lodash": "4.17.*"
   },
   "scripts": {
-    "test": "node test/ContactServiceTest"
+    "test": "node test"
   },
   "preferGlobal": false
 }
