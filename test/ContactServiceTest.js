@@ -44,6 +44,7 @@ __(function() {
      */
     setup: function() {
       carbon.carbond.test.ServiceTest.prototype.setup.call(this)
+      this.service.db.getCollection("users").createIndex({email: 1}, {unique: true})
       this.service.db.command({dropDatabase: 1})
     },
 
@@ -81,6 +82,25 @@ __(function() {
         },
         resSpec: {
           statusCode: 201
+        }
+      },
+
+      /*************************************************************************
+       * POST /users
+       *
+       * Test adding user again (should error in Conflict (409) since email is taken)
+       */
+      {
+        reqSpec: {
+          url: '/users',
+          method: "POST",
+          body: {
+            email: TEST_EMAIL,
+            password: TEST_PASSWORD,
+          }
+        },
+        resSpec: {
+          statusCode: 409
         }
       },
 
