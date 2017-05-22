@@ -1,8 +1,8 @@
 # Contact Service
 
-This example illustrates the use of Carbon.io to implement a public API for managing contacts using Collection endpoints. This 
-API also handles user management, and allows for new users to register via the API, and then use the API to manage their 
-contacts separate from other users' contacts. 
+This example illustrates the use of Carbon.io to implement a public API for managing personal contacts. This 
+API also handles user management, and allows for new users to register via the API, and then use the API to 
+manage their contacts separate from other users' contacts. 
 
 ## Installing the service
 
