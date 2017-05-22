@@ -5,9 +5,6 @@ var o      = carbon.atom.o(module)
 var _o     = carbon.bond._o(module)
 var __     = carbon.fibers.__(module)
 
-// XXX should we also do an admin user example?
-// XXX should we also show examples of users not being able to see other users' stuff?
-
 /***************************************************************************************************
  * TEST_EMAIL
  */
@@ -263,7 +260,7 @@ __(function() {
           }
         },
         resSpec: {
-          statusCode: 200, // XXX Want to test result?
+          statusCode: 200, 
         }
       },
 
@@ -379,7 +376,7 @@ __(function() {
           }
         },
         resSpec: {
-          statusCode: 204 // XXX do we like 204?
+          statusCode: 204 
         }
       },
 
