@@ -22,7 +22,7 @@ This example expects a running MongoDB database. The code will honor a ```DB_URI
 
 To set the environment variable to point the app at a database different from the default (on Mac):
 ```
-export DB_URI=mongodb://localhost:27017/mydb
+$ export DB_URI=mongodb://localhost:27017/mydb
 ```
 
 ## Running the service
@@ -62,6 +62,14 @@ $ npm test
 ```
 
 ## Generating API documentation (aglio flavor)
+
+To generate documentation using aglio, install it as a devDependency:
+
+```
+$ npm install -D --no-optional aglio
+```
+
+Using `--no-optional` speeds up aglio's install time significantly. Then generate the docs using this command:
 
 ```sh
 $ node lib/ContactService gen-static-docs --flavor aglio --out docs/index.html
