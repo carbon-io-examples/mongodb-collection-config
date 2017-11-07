@@ -10,7 +10,7 @@ We encourage you to clone the git repository so you can play around
 with the code. 
 
 ```
-$ git clone -b carbon-0.7 git@github.com:carbon-io-examples/contacts-service-advanced.git
+$ git clone git@github.com:carbon-io-examples/contacts-service-advanced.git
 $ cd contacts-service-advanced
 $ npm install
 ```
