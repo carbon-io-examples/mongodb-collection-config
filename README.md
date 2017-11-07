@@ -10,9 +10,9 @@ We encourage you to clone the git repository so you can play around
 with the code. 
 
 ```
-% git clone git@github.com:carbon-io/example__contact-service.git
-% cd example__contact-service
-% npm install
+$ git clone -b carbon-0.7 -b carbon-0.7 git@github.com:carbon-io-examples/contacts-service-advanced.git
+$ cd example__contact-service
+$ npm install
 ```
 
 ## Setting up your environment
@@ -30,13 +30,13 @@ export DB_URI=mongodb://localhost:27017/mydb
 To run the service:
 
 ```sh
-% node lib/ContactService
+$ node lib/ContactService
 ```
 
 For cmdline help:
 
 ```sh
-% node lib/ContactService -h
+$ node lib/ContactService -h
 ```
 
 ## Accessing the service
@@ -44,7 +44,7 @@ For cmdline help:
 You can interact with the service via HTTP. Here is an example using curl to create a new user:
 
 ```
-% curl localhost:9900/users -H "Content-Type: application/json" -d '{"email":"foo@bar.com", "password":"foobar"}'
+$ curl localhost:9900/users -H "Content-Type: application/json" -d '{"email":"foo@bar.com", "password":"foobar"}'
 ```
 
 ## Running the unit tests
@@ -52,19 +52,19 @@ You can interact with the service via HTTP. Here is an example using curl to cre
 This example comes with a simple unit test written in Carbon.io's test framework called TestTube. It is located in the ```test``` directory. 
 
 ```
-% node test/ContactServiceTest
+$ node test/ContactServiceTest
 ```
 
 or 
 
 ```
-% npm test
+$ npm test
 ```
 
 ## Generating API documentation (aglio flavor)
 
 ```sh
-% node lib/ContactService gen-static-docs --flavor aglio --out docs/index.html
+$ node lib/ContactService gen-static-docs --flavor aglio --out docs/index.html
 ```
 
 * [View current documentation](
