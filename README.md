@@ -11,7 +11,7 @@ with the code.
 
 ```
 $ git clone -b carbon-0.7 git@github.com:carbon-io-examples/contacts-service-advanced.git
-$ cd example__contact-service
+$ cd contacts-service-advanced
 $ npm install
 ```
 
