@@ -1,10 +1,51 @@
-# [Work In Progress] MongoDB Collection Config
+# MongoDBCollection Configs
 
-[![Build Status](https://img.shields.io/travis/carbon-io-examples/contacts-service-advanced/master.svg?style=flat-square)](https://travis-ci.org/carbon-io-examples/contacts-service-advanced) ![Carbon Version](https://img.shields.io/badge/carbon--io-0.7-blue.svg?style=flat-square)
+[![Build Status](https://img.shields.io/travis/carbon-io-examples/mongodb-collection-config/master.svg?style=flat-square)](https://travis-ci.org/carbon-io-examples/mongodb-collection-config) ![Carbon Version](https://img.shields.io/badge/carbon--io-0.7-blue.svg?style=flat-square)
 
 
-This example illustrates how to configure operation handlers in `MongoDBCollection`.
+This example illustrates how to configure operation handlers in `MongoDBCollection`. Collections have 10 operation handlers which correspond to the following HTTP Methods:
 
+|  Operation Handler  |    HTTP Method and Endpoint    |
+|---------------------|--------------------------------|
+| `insert`            | `POST /<collection>`           |
+| `find`              | `GET /<collection>`            |
+| `save`              | `PUT /<collection>`            |
+| `update`            | `PATCH /<collection>`          |
+| `remove`            | `DELETE /<collection>`         |
+| `insertObject`      | `POST /<collection>/<_id>`     |
+| `findObject`        | `GET /<collection>/<_id>`      |
+| `saveObject`        | `PUT /<collection>/<_id>`      |
+| `updateObject`      | `PATCH /<collection>/<_id>`    |
+| `removeObject`      | `DELETE /<collection>/<_id>`   |
+
+Each handler has a config object such as `insertConfig` or `removeObjectConfig`. These contain common configuration options for handlers such as:
+
+- documentation for the handlers,
+- schema for validating requests,
+- parameter definitions,
+- and behavioral flags such as `returnsInsertedObjects`.
+
+**You can view a `MongoDBCollection` with all of the default config objects in [`lib/ContactsEndpoint.js`](lib/ContactsEndpoint.js). That file contains detailed comments on all of the configuration options. You can also read more in the [documentation](https://docs.carbon.io/en/master/packages/carbond/docs/ref/carbond.collections.CollectionOperationConfig.html).**
+
+Here are a few useful notes on a some of the config options:
+
+- **parameters**: This is an object of parameters which will be passed to handlers via the options argument. See the [OperationParameter documentation](https://docs.carbon.io/en/master/packages/carbond/docs/ref/carbond.OperationParameter.html) to learn about the structure of operation parameters. You can overwrite the default parameters or add more by using the `$merge` keyword of Atom. For example:
+
+    ```js
+    parameters: {
+      $merge: {
+        datetime: {
+          location: 'query',
+          schema: {
+            type: 'string'
+          },
+          required: false
+        }
+      }
+    }
+    ```
+
+- **returnsUpsertedObjects** and **returnsRemovedObjects**: The `insert`, `save`, `insertObject`, and `saveObject` handlers can be configured to respond with the inserted or saved documents by setting `returnsInsertedObjects` or `returnsSavedObjects` to `true`. However, due to limitations with MongoDB, `returnsUpsertedObjects` and `returnsRemovedObjects` cannot be set to `true`. You cannot receive the upserted or removed objects from the response without a second database call. If you require this, you should implement it in a [post hook](https://docs.carbon.io/en/master/packages/carbond/docs/guide/collections/collection-operation-hooks.html).
 
 ## Installing the service
 
@@ -12,8 +53,8 @@ We encourage you to clone the git repository so you can play around
 with the code.
 
 ```
-$ git clone git@github.com:carbon-io-examples/contacts-service-advanced.git
-$ cd contacts-service-advanced
+$ git clone git@github.com:carbon-io-examples/mongodb-collection-config.git
+$ cd mongodb-collection-config
 $ npm install
 ```
 
@@ -78,4 +119,4 @@ $ node lib/ContactService gen-static-docs --flavor aglio --out docs/index.html
 ```
 
 * [View current documentation](
-http://htmlpreview.github.io/?https://raw.githubusercontent.com/carbon-io-examples/contacts-service-advanced/blob/carbon-0.7/docs/index.html)
+http://htmlpreview.github.io/?https://raw.githubusercontent.com/carbon-io-examples/mongodb-collection-config/blob/carbon-0.7/docs/index.html)
