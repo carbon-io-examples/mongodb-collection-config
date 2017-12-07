@@ -87,7 +87,7 @@ $ node lib/ContactService -h
 You can interact with the service via HTTP. Here is an example using curl to create a new user:
 
 ```
-$ curl localhost:9900/users -H "Content-Type: application/json" -d '{"email":"foo@bar.com", "password":"foobar"}'
+$ curl localhost:9900/contacts -H "Content-Type: application/json" -d '{"firstName": "Ada", "email": "foo@bar.com"}'
 ```
 
 ## Running the unit tests
