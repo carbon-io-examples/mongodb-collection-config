@@ -58,17 +58,25 @@ __(function() {
        * Test adding a new contact.
        */
       {
-        name: "POST /contacts",
+        name: "POST /contacts (array)",
         reqSpec: function(context) {
           return {
             url: `/contacts`,
             method: "POST",
-            body: {
-              firstName: "Mary",
-              lastName: "Smith",
-              email: "mary@smith.com",
-              phoneMobile: "415-555-5555"
-            }
+            body: [
+              {
+                firstName: "Mary",
+                lastName: "Smith",
+                email: "mary@smith.com",
+                phoneMobile: "415-555-5555"
+              },
+              {
+                firstName: "Bob",
+                lastName: "Jones",
+                email: "bob@jones.com",
+                phoneMobile: "415-555-5555"
+              }
+            ]
           }
         },
         resSpec: {
@@ -98,6 +106,105 @@ __(function() {
           statusCode: 200,
         }
       },
+      
+      /*************************************************************************
+       * PUT /contacts
+       *
+       * Test saving contacts (overwrites entire collection)
+       */
+      {
+        name: "PUT /contacts",
+        reqSpec: function(context) {
+          return {
+            url: `/contacts`,
+            method: "PUT",
+            body: [
+              {
+                _id: '1',
+                firstName: "Mary",
+                lastName: "Smith",
+                email: "mary@smith.com",
+                phoneMobile: "415-555-5555"
+              },
+              {
+                _id: '2',
+                firstName: "Bob",
+                lastName: "Jones",
+                email: "bob@jones.com",
+                phoneMobile: "415-555-5555"
+              }
+            ]
+          }
+        },
+        resSpec: {
+          statusCode: 200
+        }
+      },
+      
+      /*************************************************************************
+       * PATCH /contacts
+       *
+       * Test updating every document in the collection using PATCH.
+       */
+      {
+        name: "PATCH /contacts",
+        reqSpec: function(context) {
+          return {
+            url: `/contacts`,
+            method: "PATCH",
+            body: {
+              $set: {
+                firstName: "Spartacus"
+              }
+            }
+          }
+        },
+        resSpec: {
+          statusCode: 200
+        }
+      },
+      
+      /*************************************************************************
+       * DELETE /contacts
+       *
+       * Test deleting the entire collection.
+       */
+      {
+        name: "DELETE /contacts",
+        reqSpec: function(context) {
+          return {
+            url: `/contacts`,
+            method: "DELETE"
+          }
+        },
+        resSpec: {
+          statusCode: 200
+        }
+      },
+      
+      /*************************************************************************
+       * POST /contacts
+       *
+       * Test adding a new contact (just a single object). This uses insertObject.
+       */
+      {
+        name: "POST /contacts (object)",
+        reqSpec: function(context) {
+          return {
+            url: `/contacts`,
+            method: "POST",
+            body: {
+              firstName: "Mary",
+              lastName: "Smith",
+              email: "mary@smith.com",
+              phoneMobile: "415-555-5555"
+            }
+          }
+        },
+        resSpec: {
+          statusCode: 201
+        }
+      },
 
       /*************************************************************************
        * GET /contacts/:_id
@@ -108,13 +215,13 @@ __(function() {
         name: "GET /contacts/:_id",
         reqSpec: function(context) {
           return {
-            url: context.httpHistory.getRes(-2).headers.location,
+            url: context.httpHistory.getRes('POST /contacts (object)').headers.location,
             method: "GET"
           }
         },
         resSpec: function(response, context) {
           var previousResponse = context.httpHistory.getRes(-1)
-          assert.deepEqual(response.body, previousResponse.body[0])
+          assert.deepEqual(response.body, previousResponse.body)
         }
       },
 
@@ -128,10 +235,10 @@ __(function() {
         name: "PUT /contacts/:_id",
         reqSpec: function(context) {
           return {
-            url: context.httpHistory.getRes(-3).headers.location,
+            url: context.httpHistory.getRes('POST /contacts (object)').headers.location,
             method: "PUT",
             body: {
-              _id: context.httpHistory.getRes(-1).body._id,
+              _id: context.httpHistory.getRes('GET /contacts/:_id').body._id,
               firstName: "Mary",
               lastName: "Smith",
               email: "mary.smith@gmail.com", // We are changing email
@@ -141,6 +248,30 @@ __(function() {
         },
         resSpec: {
           statusCode: 200
+        }
+      },
+      
+      /*************************************************************************
+       * PATCH /contacts/:_id
+       *
+       * Test saving changes to the contact via PATCH.
+       */
+      {
+        name: "PATCH /contacts/:_id",
+        reqSpec: function(context) {
+          return {
+            url: context.httpHistory.getRes('POST /contacts (object)').headers.location,
+            method: "PATCH",
+            body: {
+              phoneMobile: "555-867-5309"
+            }
+          }
+        },
+        resSpec: {
+          statusCode: 200,
+          body: {
+            n: 1
+          }
         }
       },
 
@@ -153,7 +284,7 @@ __(function() {
         name: "DELETE /contacts/:_id",
         reqSpec: function(context) {
           return {
-            url: context.httpHistory.getRes(-4).headers.location,
+            url: context.httpHistory.getRes('POST /contacts (object)').headers.location,
             method: "DELETE"
           }
         },
@@ -171,7 +302,7 @@ __(function() {
         name: "DELETE /contacts/:_id",
         reqSpec: function(context) {
           return {
-            url: context.httpHistory.getRes(-5).headers.location,
+            url: context.httpHistory.getRes('POST /contacts (object)').headers.location,
             method: "DELETE"
           }
         },

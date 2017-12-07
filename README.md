@@ -7,12 +7,12 @@ This example illustrates how to configure operation handlers in `MongoDBCollecti
 
 |  Operation Handler  |    HTTP Method and Endpoint    |
 |---------------------|--------------------------------|
-| `insert`            | `POST /<collection>`           |
+| `insert`            | `POST /<collection>` (array)   |
 | `find`              | `GET /<collection>`            |
 | `save`              | `PUT /<collection>`            |
 | `update`            | `PATCH /<collection>`          |
 | `remove`            | `DELETE /<collection>`         |
-| `insertObject`      | `POST /<collection>/<_id>`     |
+| `insertObject`      | `POST /<collection>` (object)  |
 | `findObject`        | `GET /<collection>/<_id>`      |
 | `saveObject`        | `PUT /<collection>/<_id>`      |
 | `updateObject`      | `PATCH /<collection>/<_id>`    |
