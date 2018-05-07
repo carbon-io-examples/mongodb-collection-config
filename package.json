@@ -10,8 +10,9 @@
     "url": "https://github.com/carbon-io/example__contacts-api"
   },
   "dependencies": {
-    "carbon-io": "0.6.*",
-    "lodash": "4.17.*"
+    "carbon-io": "^0.7.0",
+    "lodash": "^4.17.10",
+    "request": "2.85.x"
   },
   "scripts": {
     "start": "node lib/ContactService",
